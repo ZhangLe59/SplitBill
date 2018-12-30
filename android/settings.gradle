@@ -1,0 +1,3 @@
+rootProject.name = 'SplitBill'
+
+include ':app'
