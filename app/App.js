@@ -13,12 +13,14 @@ import { View, Text } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import HomeScreen from './component/dashboard';
 import LoginScreen from './component/login';
+import NewBillScreen from "./component/newbill";
 
 
 const AppNavigator = createStackNavigator(
   {
     Home: HomeScreen,
-    Login: LoginScreen
+    Login: LoginScreen,
+    NewBill: NewBillScreen
   },
   {
     initialRouteName: "Login"

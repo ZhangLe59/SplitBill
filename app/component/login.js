@@ -11,7 +11,7 @@ import commonStyle from '../style/commonStyle';
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 0.3,
         justifyContent: 'center',
         paddingHorizontal: 10
     },
@@ -20,31 +20,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#DDDDDD',
         padding: 10
     },
-    countContainer: {
+    textContainer: {
         alignItems: 'center',
         padding: 10
-    },
-    listView: {
-      flex: 1,
-    },
-    itemView: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      margin: 15
-    },
-    itemText: {
-      color: commonStyle.TEXT_GRAY_COLOR,
-      fontSize: 18
-    },
-    itemImage: {
-      width: 20,
-      height: 20,
-    },
-    separatorLine: {
-      height: 1,
-      backgroundColor: commonStyle.GRAY_COLOR,
-      marginHorizontal: 15
     }
 });
 
@@ -52,30 +30,33 @@ const styles = StyleSheet.create({
 class LoginScreen extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { count: 0 }
+    }
+
+    onPressCreateBill = () => {
+        this.props.navigation.navigate('NewBill')
     }
 
     onPress = () => {
-        this.setState({ count: this.state.count + 1 })
+        this.props.navigation.navigate('Home')
     }
 
     render() {
       return (
         <View style={styles.container}>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={this.onPress} >
-                <Text>Create Bill</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={this.onPress} >
-                <Text>Add into Bill</Text>
-            </TouchableOpacity>
-            <View style={[styles.countContainer]}>
-                <Text>Login Screen { this.state.count !== 0? this.state.count: null }</Text>
+            <View style={[styles.textContainer]}>
+                <Text>Welcom to Split Bill App</Text>
             </View>
-                     
+            <TouchableOpacity
+                style={styles.button}
+                onPress={this.onPressCreateBill} >
+                <Text>Create A Bill</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={this.onPress} >
+                <Text>View A Bill</Text>
+            </TouchableOpacity>
+                                
         </View>
       );
     }
