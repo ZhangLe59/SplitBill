@@ -26,11 +26,18 @@ const styles = StyleSheet.create({
 class NewBillScreen extends React.Component {
     constructor(props){
         super(props);
-        this.state = { billtext: '', username: '' }
+        this.state = { billtext: '', username: '', alerttext: '' }
     }
 
     onPress = () => {
         this.setState({ billtext: this.refs.billname.state.text, username: this.refs.yourname.state.text });
+        if (this.state.billtext == "" || this.state.username == ""){
+            this.setState({ alerttext: 'Please type in bill name and your name. '});
+        } else {
+            this.setState({ alerttext: ''});
+            this.props.navigation.navigate('BillDetail', { billname: this.refs.billname.state.text, username: this.refs.yourname.state.text})
+        }
+       
     }
       
     render() {
@@ -42,8 +49,7 @@ class NewBillScreen extends React.Component {
                 onPress={this.onPress} >
                 <Text>Create A New Bill</Text>
           </TouchableOpacity>
-          <Text >{ this.state.billtext }</Text>
-          <Text >{ this.state.username }</Text>
+          <Text >{ this.state.alerttext }</Text>
         </View>
       );
     }
