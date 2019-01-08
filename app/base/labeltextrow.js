@@ -5,6 +5,7 @@ import {
     StyleSheet,
     TextInput
   } from 'react-native';
+import InputItem from '@ant-design/react-native/lib/input-item';
 
   const styles = StyleSheet.create({
     container: {
@@ -20,7 +21,6 @@ import {
     },
     textinputContainer: {
         marginTop: 18, 
-        height: 28, 
         width: '60%', 
         borderColor: 'gray', 
         borderWidth: 1
@@ -56,7 +56,7 @@ class LabelTextRowScreen extends React.Component {
       return (
         <View style={styles.container}>
           <Text style={[styles.textContainer]}>{ this.props.name }</Text>
-          <TextInput style={[styles.textinputContainer]}
+          <InputItem placeholder='Please type'
             onBlur={ () => this.onBlur() }
             onFocus={ () => this.onFocus() }
             onChangeText={ (text) => this.setState({text}) }

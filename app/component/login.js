@@ -1,28 +1,31 @@
 import React, {PropTypes} from 'react';
 import {
-    Button,
     View,
     Text,
     Image,
     StyleSheet,
     TouchableOpacity
   } from 'react-native';
+import { Button, Flex, WhiteSpace, WingBlank } from '@ant-design/react-native';
 import commonStyle from '../style/commonStyle';
 
 const styles = StyleSheet.create({
     container: {
-        flex: 0.3,
-        justifyContent: 'center',
-        paddingHorizontal: 10
+        marginTop: 10
     },
-    button: {
+    flextext: {
         alignItems: 'center',
-        backgroundColor: '#DDDDDD',
+        padding: 10
+    },
+    flexbutton: {
         padding: 10
     },
     textContainer: {
         alignItems: 'center',
         padding: 10
+    },
+    button: {
+        backgroundColor: '#DDDDDD',
     }
 });
 
@@ -43,20 +46,21 @@ class LoginScreen extends React.Component {
     render() {
       return (
         <View style={styles.container}>
-            <View style={[styles.textContainer]}>
-                <Text>Welcom to Split Bill App</Text>
-            </View>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={this.onPressCreateBill} >
-                <Text>Create A Bill</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={this.onPress} >
-                <Text>View A Bill</Text>
-            </TouchableOpacity>
-                                
+            <Flex>
+                <Flex.Item style={styles.flextext} >
+                <Text style={styles.textContainer}>Welcom to Split Bill App</Text>
+                </Flex.Item>
+            </Flex>
+            <Flex>
+                <Flex.Item style={styles.flexbutton} >
+                <Button style={styles.button}  onPress={this.onPressCreateBill}>Create A Bill</Button>
+                </Flex.Item>
+            </Flex>
+            <Flex>
+                <Flex.Item style={styles.flexbutton} >
+                <Button style={styles.button}  onPress={this.onPress}>View A Bill</Button>
+                </Flex.Item>
+            </Flex>
         </View>
       );
     }
