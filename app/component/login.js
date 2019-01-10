@@ -1,39 +1,16 @@
 import React, {PropTypes} from 'react';
-import {
-    View,
-    Text,
-    Image,
-    StyleSheet,
-    TouchableOpacity
-  } from 'react-native';
-import { Button, Flex, WhiteSpace, WingBlank } from '@ant-design/react-native';
+import { View, Text } from 'react-native';
+import { Button, Flex } from '@ant-design/react-native';
 import commonStyle from '../style/commonStyle';
-
-const styles = StyleSheet.create({
-    container: {
-        marginTop: 10
-    },
-    flextext: {
-        alignItems: 'center',
-        padding: 10
-    },
-    flexbutton: {
-        padding: 10
-    },
-    textContainer: {
-        alignItems: 'center',
-        padding: 10
-    },
-    button: {
-        backgroundColor: '#DDDDDD',
-    }
-});
-
 
 class LoginScreen extends React.Component {
     constructor(props) {
         super(props)
     }
+
+    static navigationOptions = ({ navigation }) => ({
+        title: 'Split Bill App',
+    });
 
     onPressCreateBill = () => {
         this.props.navigation.navigate('NewBill')
@@ -45,20 +22,20 @@ class LoginScreen extends React.Component {
 
     render() {
       return (
-        <View style={styles.container}>
-            <Flex>
-                <Flex.Item style={styles.flextext} >
-                <Text style={styles.textContainer}>Welcom to Split Bill App</Text>
+        <View style={commonStyle.container}>
+            <Flex >
+                <Flex.Item style={commonStyle.flexcentertext} >
+                <Text>Welcom to Split Bill App</Text>
                 </Flex.Item>
             </Flex>
             <Flex>
-                <Flex.Item style={styles.flexbutton} >
-                <Button style={styles.button}  onPress={this.onPressCreateBill}>Create A Bill</Button>
+                <Flex.Item style={commonStyle.flexcenterbutton} >
+                <Button style={commonStyle.graybutton}  onPress={this.onPressCreateBill}>Create A Bill</Button>
                 </Flex.Item>
             </Flex>
             <Flex>
-                <Flex.Item style={styles.flexbutton} >
-                <Button style={styles.button}  onPress={this.onPress}>View A Bill</Button>
+                <Flex.Item style={commonStyle.flexcenterbutton} >
+                <Button style={commonStyle.graybutton}  onPress={this.onPress}>View A Bill</Button>
                 </Flex.Item>
             </Flex>
         </View>

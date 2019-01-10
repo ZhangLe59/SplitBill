@@ -4,7 +4,8 @@
 
 import apiCache from './apiCache'
 
-const baseUrl = 'http://v3.wufazhuce.com:8000/api';
+//const baseUrl = 'http://v3.wufazhuce.com:8000/api';
+const baseUrl = 'http://35.240.226.40';
 
 const showLog = __DEV__;
 

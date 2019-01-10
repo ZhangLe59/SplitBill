@@ -1,24 +1,9 @@
 import React, {PropTypes} from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    TextInput
-  } from 'react-native';
-import InputItem from '@ant-design/react-native/lib/input-item';
+import { View, Text, StyleSheet } from 'react-native';
+import { InputItem, Flex } from '@ant-design/react-native';
+import commonStyle from '../style/commonStyle';
 
   const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        paddingHorizontal: 20,
-        height: 30,
-        flexDirection:'row'
-    },
-    textContainer: {
-        alignItems: 'center',
-        padding: 20
-    },
     textinputContainer: {
         marginTop: 18, 
         width: '60%', 
@@ -54,13 +39,21 @@ class LabelTextRowScreen extends React.Component {
       
     render() {
       return (
-        <View style={styles.container}>
-          <Text style={[styles.textContainer]}>{ this.props.name }</Text>
-          <InputItem placeholder='Please type'
-            onBlur={ () => this.onBlur() }
-            onFocus={ () => this.onFocus() }
-            onChangeText={ (text) => this.setState({text}) }
-            value={this.state.text} />
+        <View style={commonStyle.containerhorizon}>
+            <Flex>
+                <Flex.Item style={commonStyle.flexcentertext} >
+                <Text>{ this.props.name }</Text>
+                </Flex.Item>
+            </Flex>
+            <Flex>
+                <Flex.Item style={commonStyle.flexcentertext} >
+                <InputItem placeholder='Please type'
+                    onBlur={ () => this.onBlur() }
+                    onFocus={ () => this.onFocus() }
+                    onChangeText={ (text) => this.setState({text}) }
+                    value={this.state.text} />
+                </Flex.Item>
+            </Flex>
         </View>
       );
     }

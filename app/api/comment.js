@@ -16,3 +16,7 @@ export function getCommentList(type, id, index) {
       return Promise.reject('wrong argument');
   }
 }
+
+export function getTest() {
+  return getFetchNeverCached('/');
+}

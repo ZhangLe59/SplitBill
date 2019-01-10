@@ -1,48 +1,57 @@
 import React, {PropTypes} from 'react';
-import {
-    ListView,
-    View,
-    Text,
-    Image,
-    StyleSheet,
-    TouchableOpacity
-  } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View  } from 'react-native';
 import commonStyle from '../style/commonStyle';
-
-const styles = StyleSheet.create({
-    listView: {
-      flex: 1,
-    },
-    itemView: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      margin: 15
-    },
-    itemText: {
-      color: commonStyle.TEXT_GRAY_COLOR,
-      fontSize: 18
-    },
-    itemImage: {
-      width: 20,
-      height: 20,
-    },
-    separatorLine: {
-      height: 1,
-      backgroundColor: commonStyle.GRAY_COLOR,
-      marginHorizontal: 15
-    }
-});
-
+import { getTest } from '../api/comment';
 
 class HomeScreen extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { getAPI: null, isLoading: true }
+    }
+
+    componentDidMount() {
+      this.setState({//加载
+        isLoading: true
+      });
+      return fetch('http://35.240.226.40/')
+        .then((responseJson) => {
+        this.setState({
+          getAPI: JSON.parse(responseJson._bodyText),
+          isLoading: false
+        });
+      }).catch((error) => {
+        console.error(error);
+        this.setState({//加载
+          isLoading: true
+        });
+      });
+  }
+
     render() {
-      return (
-        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-          <Text>Home Screen</Text>
+      if(this.state.isLoading){
+        return(
+          <View style={{flex: 1, padding: 20}}>
+            <ActivityIndicator/>
+          </View>
+        )
+      }
+  
+      return(
+        <View style={{flex: 1, paddingTop:20}}>
+          <Text>_bodyText_data: {this.state.getAPI.code}</Text>
+          <Text>_bodyText_msg: {this.state.getAPI.msg}</Text>
+          <Text>_bodyText_data: {this.state.getAPI.data}</Text>
         </View>
       );
     }
-}
+  }
+
+//        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+//          <Text>Home Screen { this.state.text }</Text>
+//        </View>
+/* 
+         <Text>status: {this.state.data.status}</Text>
+          <Text>url: {this.state.data.url}</Text>  */
+
 
 export default HomeScreen;
