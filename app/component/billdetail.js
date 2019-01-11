@@ -1,32 +1,32 @@
 import React, {PropTypes} from 'react';
-import { View,Text } from 'react-native';
-import { Button, Flex, InputItem, WingBlank, ListView } from '@ant-design/react-native';
+import { View, Text, FlatList, ActivityIndicator } from 'react-native';
+import { Button, Flex, InputItem, WingBlank } from '@ant-design/react-native';
 import commonStyle from '../style/commonStyle';
 
 
 class BillDetailScreen extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { trxname: '', trxamount: '', layout: 'list' }
+        this.state = { trxname: '', trxamount: '', layout: 'list', arrayitem: null, isLoading: true }
     }
 
-    onFetch = async (page = 1, startFetch, abortFetch) => {
-        try {
-            let pageLimit = 30;
-            if (this.state.layout === 'grid') pageLimit = 60;
-            const skip = (page - 1) * pageLimit;
-
-            //Generate dummy data
-            let rowData = Array.from({ length: pageLimit },(_, index) => `item -> ${index + skip}`);
-
-            //Simulate the end of the list if there is no more data returned from the server
-            if (page === 3) {rowData = [];}
-
-            startFetch(rowData, pageLimit);
-            } catch (err) {
-                abortFetch(); //manually stop the refresh or pagination if it encounters network error
-            }
-    };
+    componentDidMount() {
+        this.setState({//加载
+          isLoading: true
+        });
+        return fetch('http://35.240.226.40/transaction/')
+          .then((responseJson) => {
+          this.setState({
+            arrayitem: JSON.parse(responseJson._bodyText).data,
+            isLoading: false
+          });
+        }).catch((error) => {
+          console.error(error);
+          this.setState({//加载
+            isLoading: true
+          });
+        });
+    }
 
     static navigationOptions = ({ navigation }) => ({
         title: 'Bill Detail Page',
@@ -35,13 +35,20 @@ class BillDetailScreen extends React.Component {
     renderItem = (item) => {
         return (
           <View style={{ padding: 10 }}>
-            <Text>{item}</Text>
+            <Text>{item}</Text><Text>{item}</Text>
           </View>
         );
     };
 
     render() {
       const { params } = this.props.navigation.state;
+      if(this.state.isLoading){
+        return(
+          <View style={{flex: 1, padding: 20}}>
+            <ActivityIndicator/>
+          </View>
+        )
+      }
       return (
         <View style={commonStyle.container}>
             <Flex >
@@ -86,11 +93,21 @@ class BillDetailScreen extends React.Component {
                 </Flex.Item>
             </Flex>
             <Flex>
-            <ListView
-                onFetch={this.onFetch}
-                keyExtractor={(item, index) => `${this.state.layout} - ${item} - ${index}`}
-                renderItem={this.renderItem}
-                numColumns={this.state.layout === 'list' ? 1 : 3} />
+                <FlatList
+                    data={this.state.arrayitem}
+                    renderItem={({item}) => 
+                    <Flex>
+                        <Flex.Item style={commonStyle.flexsmalltext} >
+                        <Text>{item.theme}</Text>
+                        </Flex.Item>
+                        <Flex.Item style={commonStyle.flexsmalltext} >
+                        <Text>{item.amount}</Text>
+                        </Flex.Item>
+                        <Flex.Item style={commonStyle.flexsmalltext} >
+                        <Text>{item.paiedPerson}</Text>
+                        </Flex.Item>
+                    </Flex>
+                        } />
             </Flex>
                 
         </View>
