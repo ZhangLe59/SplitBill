@@ -22,6 +22,19 @@ class NewBillScreen extends React.Component {
             this.setState({ alerttext: 'Please type in bill name and your name. '});
         } else {
             this.setState({ alerttext: ''});
+            //fetch
+            fetch('http://35.240.226.40/newBill/', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    theme: 'ZhangLe',
+                    ownerName: 'myValue',
+                }),
+            });
+            //end fetch
             this.props.navigation.navigate('BillDetail', { billname: this.state.billname, username: this.state.username})
         }   
     }
@@ -45,7 +58,7 @@ class NewBillScreen extends React.Component {
           </Flex>
           <Flex>
                 <Flex.Item style={commonStyle.flexcenterbutton} >
-                <Button style={commonStyle.graybutton}  onPress={this.onPress}>Create</Button>
+                <Button style={commonStyle.graybutton}  onPress={this.onPress}>Generate</Button>
                 </Flex.Item>
           </Flex>
           <Flex>
