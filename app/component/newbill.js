@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react';
 import {
-    View,
-    Text
+    View, Text, Alert
   } from 'react-native';
 import { Button, Flex, InputItem } from '@ant-design/react-native';
 import commonStyle from '../style/commonStyle';
@@ -9,7 +8,7 @@ import commonStyle from '../style/commonStyle';
 class NewBillScreen extends React.Component {
     constructor(props){
         super(props);
-        this.state = { billname: '', username: '', alerttext: '' }
+        this.state = { billname: '', username: '', alerttext: '', billid: '' }
     }
 
     static navigationOptions = ({ navigation }) => ({
@@ -18,8 +17,16 @@ class NewBillScreen extends React.Component {
 
     onPress = () => {
         this.setState({ billname: this.props.billname, username: this.props.username });
+        Alert.alert(
+            'Generate the Bill',
+            'Processing ....',
+            [
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            { cancelable: false }
+          );
         if (this.state.billname == "" || this.state.username == ""){
-            this.setState({ alerttext: 'Please type in bill name and your name. '});
+            this.setState({ alerttext: 'Please type in bill name and your name.'});
         } else {
             this.setState({ alerttext: ''});
             //fetch
@@ -30,12 +37,24 @@ class NewBillScreen extends React.Component {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    theme: 'ZhangLe',
-                    ownerName: 'myValue',
+                    theme: this.state.billname,
+                    ownerName: this.state.username,
                 }),
-            });
+            }).then(response => {
+                //console.log(JSON.parse(response._bodyText).data)
+                this.props.navigation.navigate('BillDetail', { billname: JSON.parse(response._bodyText).data.theme, username: this.state.username, billid: JSON.parse(response._bodyText).data.id, billperson: JSON.parse(response._bodyText).data.person });
+                /*
+                if (response.status === 200) {
+                    this.setState({
+                        billid: JSON.parse(response._bodyText)
+                      })
+                  return response.json();
+                } else {
+                  throw new Error('Something went wrong on api server!');
+                }*/
+              });
             //end fetch
-            this.props.navigation.navigate('BillDetail', { billname: this.state.billname, username: this.state.username})
+            //
         }   
     }
       

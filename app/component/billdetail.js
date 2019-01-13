@@ -42,6 +42,12 @@ class BillDetailScreen extends React.Component {
 
     render() {
       const { params } = this.props.navigation.state;
+      var userlist = [];
+      count = 0;
+      while (count < params.billperson.split(',').length){
+          userlist.push(params.billperson.split(',')[count]);
+          count += 1;
+      }
       if(this.state.isLoading){
         return(
           <View style={{flex: 1, padding: 20}}>
@@ -55,26 +61,20 @@ class BillDetailScreen extends React.Component {
                 <Flex.Item style={commonStyle.flexcentertext} >
                 <Text>Bill Name { params.billname }</Text>
                 </Flex.Item>
-            </Flex>
-            <Flex >
                 <Flex.Item style={commonStyle.flexcentertext} >
-                <Text>Bill Number : 001</Text>
+                <Text>Bill Number : { params.billid }</Text>
                 </Flex.Item>
             </Flex>
             <Flex >
                 <Flex.Item style={commonStyle.flexcentertext} >
-                <Text>Your Name { params.username }</Text>
+                <Text>Your Name { params.billperson }</Text>
                 </Flex.Item>
             </Flex>
             <WingBlank style={commonStyle.wingblank}>
                 <Flex justify='start' wrap='wrap'>
+            
                 <Button style={commonStyle.graybutton}>{ params.username }</Button>
-                <Button style={commonStyle.graybutton}>{ params.username }</Button>
-                <Button style={commonStyle.graybutton}>{ params.username }</Button>
-                <Button style={commonStyle.graybutton}>{ params.username }</Button>
-                <Button style={commonStyle.graybutton}>{ params.username }</Button>
-                <Button style={commonStyle.graybutton}>{ params.username }</Button>
-                <Button style={commonStyle.graybutton}>{ params.username }</Button>
+
                 </Flex>
             </WingBlank>
             <Flex>
