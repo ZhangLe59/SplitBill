@@ -1,7 +1,5 @@
 import React, {PropTypes} from 'react';
 import { FlatList, ActivityIndicator, Text, View  } from 'react-native';
-import commonStyle from '../style/commonStyle';
-import { getTest } from '../api/comment';
 
 class HomeScreen extends React.Component {
     constructor(props) {

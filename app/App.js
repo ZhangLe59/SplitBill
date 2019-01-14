@@ -14,6 +14,7 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 import HomeScreen from './component/dashboard';
 import LoginScreen from './component/login';
 import NewBillScreen from "./component/newbill";
+import ViewBillScreen from "./component/viewbill";
 import BillDetailScreen from "./component/billdetail";
 
 
@@ -22,6 +23,7 @@ const AppNavigator = createStackNavigator(
     Home: HomeScreen,
     Login: LoginScreen,
     NewBill: NewBillScreen,
+    ViewBill: ViewBillScreen,
     BillDetail: BillDetailScreen
   },
   {

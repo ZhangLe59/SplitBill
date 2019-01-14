@@ -17,7 +17,7 @@ class LoginScreen extends React.Component {
     }
 
     onPress = () => {
-        this.props.navigation.navigate('Home')
+        this.props.navigation.navigate('ViewBill')
     }
 
     render() {
