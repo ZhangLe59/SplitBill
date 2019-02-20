@@ -33,7 +33,7 @@ class ViewBillScreen extends React.Component {
                 ],
                 { cancelable: false }
               );
-            /*fetch 
+            //fetch 
             fetch('http://35.240.226.40/addPerson/', {
                 method: 'POST',
                 headers: {
@@ -42,18 +42,17 @@ class ViewBillScreen extends React.Component {
                 },
                 body: JSON.stringify({
                     billCode: this.state.billid,
-                    theme: this.state.billname
+                    name: this.state.username,
                 }),
             }).then(response => {
-                console.log(JSON.parse(response._bodyText).data)
-                if (JSON.parse(response._bodyText).code === 200) {
+                console.log(response);
+                if (JSON.parse(response._bodyText).code === 1) {
                     this.props.navigation.navigate('BillDetail', { billname: JSON.parse(response._bodyText).data.theme, username: this.state.username, billid: JSON.parse(response._bodyText).data.id, billperson: JSON.parse(response._bodyText).data.person });
                     return response.json();
                 } else {
                   throw new Error('Something went wrong on api server!');
                 }
               });
-            */
            //end fetch
         }   
     }
@@ -63,12 +62,16 @@ class ViewBillScreen extends React.Component {
         <View style={commonStyle.container}>
           <Flex>
                 <Flex.Item style={commonStyle.flexcentertext} >
-                <InputItem placeholder='Please type bill code' labelNumber={8} type='number'>Bill Code : </InputItem>
+                <InputItem placeholder='Please type bill code' 
+                labelNumber={8} type='number'
+                onChangeText={(text) => this.setState({billid: text})} >Bill Code : </InputItem>
                 </Flex.Item>
           </Flex>
           <Flex>
                 <Flex.Item style={commonStyle.flexcentertext} >
-                <InputItem placeholder='Please type your name' labelNumber={8}>Your Name : </InputItem>
+                <InputItem placeholder='Please type your name' 
+                labelNumber={8}
+                onChangeText={(text) => this.setState({username: text})} >Your Name : </InputItem>
                 </Flex.Item>
           </Flex>
           <Flex>

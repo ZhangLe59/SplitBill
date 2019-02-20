@@ -38,7 +38,7 @@ class NewBillScreen extends React.Component {
                 },
                 body: JSON.stringify({
                     theme: this.state.billname,
-                    ownerName: this.state.username,
+                    name: this.state.username,
                 }),
             }).then(response => {
                 //console.log(JSON.parse(response._bodyText).data)
